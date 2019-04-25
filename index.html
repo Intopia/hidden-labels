@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Accessible hidden labels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <!-- Master CSS file -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Local CSS file if needed -->
+</head>
+<body>
+
+  <!-- skip to content link -->
+  <div class="skip-link">
+    <a href="#main">Skip to content (Press enter)</a>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <h1 class="header__logo"><a href="http://code.intopia.digital"><img src="assets/img/code-intopia.png" alt="Code Intopia"></a></h1>
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div class="banner">
+    <div class="container">
+      <h2>Accessible hidden labels</h2>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Navigation -->
+    <div class="aside">
+      <ul class="menu">
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#tests">Test criteria</a></li>
+        <li><a href="#solutions">Test cases</a></li>
+        <li><a href="#results">Test results</a></li>
+        <li><a href="#recommendations">Recommendations</a></li>
+        <li><a href="#wcag">WCAG checkpoints</a></li>
+        <li><a class="menu__external" href="http://code.intopia.digital">Home</a></li>
+      </ul>
+      <div>
+        <a class="link-primary" href="https://github.com/Intopia/hidden-labels">Download Git repo</a>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main" id="main">
+      <h3 id="problem">The problem</h3>
+      <p>In some cases, it may not be desirable to display a text label associated with a form control. An example might be a site-wide search form that is positioned within the site header.</p>
+      <p>Even if a text label is not displayed, some sort of label should be available for screen readers.</p>
+      <hr>
+
+      <h3 id="tests">Test criteria</h3>
+      <ol>
+        <li>Is some sort of label announced when the form control recieves focus - even when the text label is not displayed on-screen?</li>
+      </ol>
+      <hr>
+
+      <h3 id="examples">Test cases</h3>
+      <h4 id="example1">Example 1: No label</h4>
+      <div class="example">
+        <div class="input">
+          <input class="input__control" type="text">
+        </div>
+      </div>
+<pre><code class="language-markup">&lt;div class="input"&gt;
+  &lt;input class="input__control" type="text"&gt;
+&lt;/div&gt;
+</code></pre>
+
+      <h4 id="example2">Example 2: Hidden off-screen</h4>
+      <div class="example">
+        <div class="input">
+          <label class="hidden" for="example02">Example 2</label>
+          <input class="input__control" type="text" id="example02">
+        </div>
+      </div>
+<pre><code class="language-markup">&lt;div class="input"&gt;
+  &lt;label class="hidden" for="example02"&gt;Example 2&lt;/label&gt;
+  &lt;input class="input__control" type="text" id="example02"&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-css">.hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  border: 0;
+  margin: -1px;
+  padding: 0;
+}
+</code></pre>
+
+      <h4 id="example3">Example 3: Using the <code>title</code> attribute</h4>
+      <div class="example">
+        <div class="input">
+          <input class="input__control" type="text" title="Example 3">
+        </div>
+      </div>
+<pre><code class="language-markup">&lt;div class="input"&gt;
+  &lt;input class="input__control" type="text" title="Example 3"&gt;
+&lt;/div&gt;
+</code></pre>
+
+      <h4 id="example4">Example 4: Using the <code>aria-label</code> attribute</h4>
+      <div class="example">
+        <div class="input">
+          <input class="input__control" type="text" aria-label="Example 4">
+        </div>
+      </div>
+<pre><code class="language-markup">&lt;div class="input"&gt;
+  &lt;input class="input__control" type="text" aria-label="Example 4"&gt;
+&lt;/div&gt;
+</code></pre>
+      <hr>
+
+      <h3 id="results">Test results</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Environment</th>
+              <th>Example1</th>
+              <th>Example2</th>
+              <th>Example3</th>
+              <th>Example4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Win/Edge/NVDA</td>
+              <td><span class="fail">Fail</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>Win/Chrome/NVDA</td>
+              <td><span class="fail">Fail</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>Win/Firefox/NVDA</td>
+              <td><span class="fail">Fail</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>Win/Edge/JAWS</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td>Win/Chrome/JAWS</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td>Win/Firefox/JAWS</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td>OSX/Chrome/Voiceover</td>
+              <td><span class="fail">Fail</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>OSX/Firefox/Voiceover</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+            </tr>
+            <tr>
+              <td>OSX/Safari/Voiceover</td>
+              <td><span class="fail">Fail</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+              <td><span class="pass">Pass</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+
+      <h3 id="recommendations">Recommendations</h3>
+      <p>Some sort of label should always be programmatically associated with its form control - even if hidden off-screen.</p>
+      <p>Will the <code>title</code> and <code>aria-label</code> attribute methods are well supported across Assistive Technologies, <a href="#example2">Example 2: Hidden off-screen</a> is the <b>recommended solution</b> as it is the most robust option.
+      <hr>
+
+      <h3 id="wcag">Related WCAG 2.1 checkpoints</h3>
+      <h4>Success criterion</h4>
+      <ul>
+        <li>[Success criterion]</li>
+      </ul>
+      <h4>Sufficient techniques</h4>
+      <ul>
+        <li>[Sufficient techniques]</li>
+      </ul>
+      <hr>
+
+    </div>
+  </div>
+
+<script src="assets/js/prism.js"></script>
+</body>
+</html>
